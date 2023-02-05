@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\orderCreate;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Order\OrderResource;
 use App\Models\Order;
@@ -54,31 +55,32 @@ class OrderController extends Controller
         $userEmail  = Auth::user()->email;
         $company  = Auth::user()->company_id;
 
-                $product      = new Order();
-                $product->name            = $this->rand_string(10);
-                $product->full_name       = $request->full_name;
-                $product->company_id      = $company;
-                $product->user_id         = $userId ;
-                $product->payment_type_id = $request->payment_type_id;
-                $product->total         = $request->total;
-                $product->reste         = $request->reste;
-                $product->address       = $request->address;
-                $product->city          = $request->city;
-                $product->country       = $request->country;
-                $product->status        = $request->status;
-                $product->save();
+                $order      = new Order();
+                $order->name            = $this->rand_string(10);
+                $order->full_name       = $request->full_name;
+                $order->company_id      = $company;
+                $order->user_id         = $userId ;
+                $order->payment_type_id = $request->payment_type_id;
+                $order->total         = $request->total;
+                $order->reste         = $request->reste;
+                $order->address       = $request->address;
+                $order->city          = $request->city;
+                $order->country       = $request->country;
+                $order->status        = $request->status;
+                $order->save();
 
                 // array products of order
 
                 $productArray = explode("," ,$request->products);
-                $product->products()->attach($productArray);
+                $order->products()->attach($productArray);
 
-                $product = new OrderResource($product);
+                $order = new OrderResource($order);
 
-                Notification::route('mail', $userEmail)->notify(new CreateOrderNotification($product));
+                Notification::route('mail', $userEmail)->notify(new CreateOrderNotification($order));
 
+                event(new orderCreate($order));
                 return response([
-                    new OrderResource($product) ,
+                    new OrderResource($order) ,
                     'message'    => 'Créez un nouveau code promotion !',
                 ], 200);
 
