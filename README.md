@@ -8,8 +8,8 @@ the env file to use it is necessary copy env.example and renemer to .env
 
 all config information Mail and websocket to use in front (Angular or react) with Echo
 
-
-PUSHER_APP_ID=123456
+ 
+PUSHER_APP_ID=123456 
 PUSHER_APP_KEY=qwerty1212
 PUSHER_APP_SECRET=qb45U7f93acL8r
 PUSHER_APP_CLUSTER=mt1

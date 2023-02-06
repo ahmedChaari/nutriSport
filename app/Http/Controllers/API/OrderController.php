@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Events\orderCreate;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Order\OrderResource;
+use App\Models\Company;
 use App\Models\Order;
 use App\Notifications\CreateOrderNotification;
 use Carbon\Carbon;
@@ -51,9 +52,11 @@ class OrderController extends Controller
 
      public function storeOrder(Request $request){
 
-        $userId  = Auth::user()->id;
+        $userId     = Auth::user()->id;
         $userEmail  = Auth::user()->email;
-        $company  = Auth::user()->company_id;
+        $company    = Auth::user()->company_id;
+       // $adminEmail = Auth::user()->company_id;
+       $adminEmail = Company::find($company);
 
                 $order      = new Order();
                 $order->name            = $this->rand_string(10);
@@ -76,7 +79,8 @@ class OrderController extends Controller
 
                 $order = new OrderResource($order);
 
-                Notification::route('mail', $userEmail)->notify(new CreateOrderNotification($order));
+                Notification::route('mail', [$userEmail, $adminEmail->email])
+                              ->notify(new CreateOrderNotification($order));
 
                 event(new orderCreate($order));
                 return response([

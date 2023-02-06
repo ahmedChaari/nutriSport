@@ -15,16 +15,19 @@ class CompanySeeder extends Seeder
     public function run()
     {
         Company::create([
-            'name'          =>   'nutriweb.mc',
-            'role'      =>   1,
+            'name'      => 'nutriweb.mc',
+            'email'     => 'contact@mindcom.ma',
+            'role'      =>  1,
             ]);
         Company::create([
-            'name'          =>   'nutriweb.fr',
+            'name'      => 'nutriweb.fr',
+            'email'     => 'fr.contact@mindcom.ma',
             'role'      =>   2,
             ]);
         Company::create([
-            'name'          =>   'nutriweb.uk',
-            'role'      =>   2,
+            'name'       => 'nutriweb.uk',
+            'email'      => 'uk.contact@mindcom.ma',
+            'role'       =>   2,
             ]);
     }
 }

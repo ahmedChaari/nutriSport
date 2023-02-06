@@ -43,7 +43,7 @@ class CreateOrderNotification extends Notification
     {
         return (new MailMessage)
                     ->line('The introduction to the notification.')
-                    ->action('Notification Action', $this->order['name'])
+                    ->action('Notification Action', $this->order['full_name'])
                     ->line('Thank you for using our application!');
     }
 
