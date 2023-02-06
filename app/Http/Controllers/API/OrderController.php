@@ -85,7 +85,7 @@ class OrderController extends Controller
                 event(new orderCreate($order));
                 return response([
                     new OrderResource($order) ,
-                    'message'    => 'Créez un nouveau code promotion !',
+                    'message'    => 'Créez un nouveau order !',
                 ], 200);
 
      }
