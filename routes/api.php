@@ -36,11 +36,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('storeProduct',   [ProductController::class, 'storeProduct']);
 
     // order
-    Route::get('listOrders',    [OrderController::class, 'listOrders']);
-    Route::get('showOrder/{id}',[OrderController::class, 'showOrder']);
-    Route::post('storeOrder',   [OrderController::class, 'storeOrder']);
+    Route::get('listOrders',      [OrderController::class, 'listOrders']);
+    Route::get('showOrder/{id}',  [OrderController::class, 'showOrder']);
+    Route::post('storeOrder',     [OrderController::class, 'storeOrder']);
 
-
-    Route::get('bestSelling',[ProductController::class, 'bestSelling']);
+    Route::get('bestSelling',     [ProductController::class, 'bestSelling']);
 
 });

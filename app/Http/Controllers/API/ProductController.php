@@ -35,7 +35,6 @@ class ProductController extends Controller
                 'message'    => 'show the product !',
                     ], 200);
         }
-
     }
 
     public function storeProduct(Request $request){
@@ -59,7 +58,6 @@ class ProductController extends Controller
             $productArray->save();
             $index++;
         }
-
 
         return response([
             $product,
